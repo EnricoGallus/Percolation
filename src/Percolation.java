@@ -58,7 +58,8 @@ public class Percolation {
         if (row == 1) { // connect to top if first row
             unionUF.union(indexCurrentElement, top);
         }
-        else if (row == size) { // connect to bottom if last row
+
+        if (row == size) { // connect to bottom if last row
             unionUF.union(indexCurrentElement, bottom);
         }
 
