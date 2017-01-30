@@ -54,20 +54,17 @@ public class Percolation {
         opened[row - 1][col - 1] = true;
         openCount++;
         int indexCurrentElement = getQFOneDimensionIndex(row, col);
-
-        if (row == 1) { // connect to top if first row
+        // connect to top if first row,  bottom if last row and all adjacents
+        if (row == 1) {
             unionUF.union(indexCurrentElement, top);
         }
-
-        if (row == size) { // connect to bottom if last row
+        if (row == size) {
             unionUF.union(indexCurrentElement, bottom);
         }
-
-        // connect to adjacent
-        if (col > 1 && isOpen(row, col - 1)) { // left
+        if (col > 1 && isOpen(row, col - 1)) {
             unionUF.union(indexCurrentElement, getQFOneDimensionIndex(row, col - 1));
         }
-        if (col < size && isOpen(row, col + 1)) { // right
+        if (col < size && isOpen(row, col + 1)) {
             unionUF.union(indexCurrentElement, getQFOneDimensionIndex(row, col + 1));
         }
         if (row > 1 && isOpen(row - 1, col)) {
@@ -94,6 +91,8 @@ public class Percolation {
 
     /**
      * is site (row, col) open?
+     * @bug has the bug that a percolated structure will show a not fully opened part as
+     * full if it is connected to the bottom
      * @param row
      * @param col
      * @return
